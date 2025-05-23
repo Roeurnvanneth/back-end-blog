@@ -11,24 +11,52 @@
     "draftAndPublish": false
   },
   "attributes": {
-    "tittle": {
-      "type": "string"
+    "title": {
+      "type": "string",
+      "required": true
     },
     "content": {
-      "type": "text",
-      "required": true
+      "type": "customField",
+      "options": {
+        "preset": "defaultHtml"
+      },
+      "required": true,
+      "customField": "plugin::ckeditor5.CKEditor"
     },
     "author": {
       "type": "relation",
-      "relation": "oneToOne",
+      "relation": "manyToOne",
       "target": "plugin::users-permissions.user",
-      "inversedBy": "blog"
+      "inversedBy": "blogs"
     },
     "category": {
       "type": "relation",
-      "relation": "oneToOne",
+      "relation": "manyToOne",
       "target": "api::category.category",
-      "inversedBy": "blog"
+      "inversedBy": "blogs"
+    },
+    "likes": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::like.like",
+      "mappedBy": "blog"
+    },
+    "comments": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::comment.comment",
+      "mappedBy": "blog"
+    },
+    "image": {
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ],
+      "type": "media",
+      "multiple": false,
+      "required": true
     }
   }
 }
